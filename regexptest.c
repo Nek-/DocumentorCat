@@ -2,6 +2,15 @@
 #include <stdlib.h>
 #include <regex.h>
 
+/**
+ * \file      regexptest.c
+ * \author    HappyTeam
+ * \version   1.0
+ * \date      7/01/2012
+ * \brief     Tests des fonctions de regexp
+ *
+ */
+
 int main()
 {
     int err;
