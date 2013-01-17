@@ -55,4 +55,30 @@ StringList* search(Pattern* p, String* s) {
         }
     }
 }
-;
+
+StringList* newStringList() {
+    StringList* list = malloc(sizeof(StringList));
+
+    return list;
+}
+
+void addToStringList(StringList* list, String* s) {
+    if (list->size == 0) {
+        list->first = newStringElement(s);
+        list->last = list->first;
+    } else {
+        list->last->next = newStringElement(s);
+        list->last->hasNext = 1;
+        list->last = list->last->next;
+    }
+
+    list->size++;
+}
+
+StringElement* newStringElement(String* s) {
+    StringElement* se = malloc(sizeof(StringElement));
+    se->str = s;
+    se->hasNext = 0;
+
+    return se;
+}

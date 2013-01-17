@@ -6,13 +6,15 @@
 
 
 typedef struct {
-    String str;
+    String* str;
     StringElement *next;
+    char hasNext = 0;
 } StringElement;
 
 typedef struct {
     StringElement *first;
     StringElement *last;
+    int size = 0;
 
 } StringList;
 
@@ -30,6 +32,9 @@ typedef struct {
 StringList* search(Pattern* m, String* s);
 
 StringList* newStringList();
+StringElement* newStringElement(String*);
+
 void addToStringList(StringList*, String*);
+
 
 #endif // LEXER_H_INCLUDED
