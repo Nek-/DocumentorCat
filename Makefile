@@ -2,15 +2,15 @@ src=./src/
 headers=./include/
 bin=./bin/
 obj=./obj/
-flags=-Wall -I$(headers)
+flags=-Wall -std=c99 -I$(headers)
 
 all: make_directories documentorcat
 
-documentorcat: reg_exp.o main.o
-	gcc -o $(bin)documentorcat $(obj)reg_exp.o $(obj)main.o $(flags)
+documentorcat: lexer.o main.o
+	gcc -o $(bin)documentorcat $(obj)lexer.o $(obj)main.o $(flags)
 
-reg_exp.o: $(src)reg_exp.c
-	gcc -o $(obj)reg_exp.o -c $(src)reg_exp.c $(flags)
+lexer.o: $(src)lexer.c
+	gcc -o $(obj)lexer.o -c $(src)lexer.c $(flags)
 
 main.o: $(src)main.c
 	gcc -o $(obj)main.o -c $(src)main.c $(flags)

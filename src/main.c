@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <regex.h>
-#include "reg_exp.h"
+#include "lexer.h"
 
 /**
  * \file      main.c
@@ -16,6 +15,5 @@ int main()
 {
     printf("Hello !");
 
-    test_copain();
     return 0;
 }
