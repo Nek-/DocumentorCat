@@ -2,7 +2,7 @@ src=./src/
 headers=./include/
 bin=./bin/
 obj=./obj/
-flags=-Wall -std=c99 -I$(headers)
+flags=-W -Wall -Wextra -std=c99 -I$(headers)
 
 all: make_directories documentorcat
 
