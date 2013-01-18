@@ -9,8 +9,8 @@ StringList* search(Pattern* p, String* s) {
     int i, j;
     String* buffer;
     BufferRange range;
-    char buffering = 0,
-         detecting = 0;
+    unsigned char buffering = 0,
+                  detecting = 0;
     StringList* list = newStringList();
 
     for (i = 0; i < s->length; i++) {
