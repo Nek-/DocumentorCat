@@ -6,11 +6,14 @@ flags=-Wall -std=c99 -I$(headers)
 
 all: make_directories documentorcat
 
-documentorcat: lexer.o main.o
-	gcc -o $(bin)documentorcat $(obj)lexer.o $(obj)main.o $(flags)
+documentorcat: lexer.o utils.o main.o
+	gcc -o $(bin)documentorcat $(obj)lexer.o $(obj)utils.o $(obj)main.o $(flags)
 
 lexer.o: $(src)lexer.c
 	gcc -o $(obj)lexer.o -c $(src)lexer.c $(flags)
+
+utils.o: $(src)utils.c
+	gcc -o $(obj)utils.o -c $(src)utils.c $(flags)
 
 main.o: $(src)main.c
 	gcc -o $(obj)main.o -c $(src)main.c $(flags)

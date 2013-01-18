@@ -7,21 +7,24 @@
 
 
 String* newString() {
-    String * s = malloc(sizeof(String));
-    s->str     = {'\0'};
-    s->length  = 0;
+    String* s = malloc(sizeof(String));
+    s->str    = malloc(sizeof(wchar_t));
+    s->str[0] = L'\0';
+    s->length = 0;
 
     return s;
 }
-String* newString(wchar_t* str) {
-    String s  = malloc(sizeof(String));
+
+String* newStringFromWchar(wchar_t* str) {
+    String* s = malloc(sizeof(String));
     s->str    = str;
     s->length = wcslen(str);
 
     return s;
 }
-String* newString(int length) {
-    String s  = malloc(sizeof(String));
+
+String* newStringFromInt(int length) {
+    String* s = malloc(sizeof(String));
     s->str    = malloc(sizeof(wchar_t) * (length + 1));
     s->length = length;
 
@@ -31,32 +34,31 @@ String* newString(int length) {
 }
 
 
-void addToString(String* s, String* s2) {
+void addStringToString(String* base, String* addition) {
 
-    addToString(s, s->str, length2);
+    addWcharToString(base, addition->str, addition->length);
 }
 
-void addToString(String* s, wchar_t* s2, int length2) {
-    wchar_t* tmp = s->str;
-    int length   = s->length;
+void addWcharToString(String* base, wchar_t* addition, int addition_length) {
+    wchar_t* tmp = base->str;
+    int length   = base->length;
 
-    s->length = s->length + length2;
-    s->str = malloc((s->length+1) * sizeof(wchar_t));
+    base->length = base->length + addition_length;
+    base->str = malloc((base->length+1) * sizeof(wchar_t));
 
 
     int i;
-    for (i=0; i < s->length; i++) {
-        if (i < size)
-            s->str[i] = tmp[i];
+    for (i=0; i < base->length; i++) {
+        if (i < length)
+            base->str[i] = tmp[i];
         else
-            s->str[i] = s2[i];
+            base->str[i] = addition[i];
     }
-    s->str[i+1] = '\0';
+    base->str[i+1] = '\0';
 
     free(tmp);
 }
 
-void addToString()
 
 void printString(String* s) {
     wprintf(L"%ls", s->str);

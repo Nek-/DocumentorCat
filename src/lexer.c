@@ -1,3 +1,7 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <wchar.h>
+
 #include "lexer.h"
 #include "utils.h"
 
@@ -16,7 +20,7 @@ StringList* search(Pattern* p, String* s) {
             // Trying to start buffering
             if (!buffering) {
                 detecting++;
-                if (p->start[detecting] == '\0') {
+                if (p->start[detecting] == L'\0') {
                     detecting = 0;
                     buffering = 1;
 
@@ -30,14 +34,14 @@ StringList* search(Pattern* p, String* s) {
                 // Trying to stop buffering
                 if(detecting > 0 || s->str[i] == p->end[0]) {
 
-                    if (p->end[detecting] == '\0') {
+                    if (p->end[detecting] == L'\0') {
                         detecting = 0;
                         buffering = 0;
 
                         // Saving the buffer in a list
                         range.end = i;
 
-                        buffer = newString(range.end - range.start);
+                        buffer = newStringFromInt(range.end - range.start);
                         for (j = 0; j < buffer->length; j++) {
                             buffer->str[j] = s->str[j+range.start];
                         }
@@ -48,16 +52,17 @@ StringList* search(Pattern* p, String* s) {
                         detecting = 0;
                     }
 
-                } else {
-                    addToString(buffer, s->str[i]);
                 }
             }
         }
     }
+
+    return list;
 }
 
 StringList* newStringList() {
     StringList* list = malloc(sizeof(StringList));
+    list->size = 0;
 
     return list;
 }
@@ -81,4 +86,22 @@ StringElement* newStringElement(String* s) {
     se->hasNext = 0;
 
     return se;
+}
+
+Pattern* newPattern(wchar_t* start, wchar_t* end) {
+    Pattern* p = malloc(sizeof(Pattern));
+    p->start   = start;
+    p->end     = end;
+
+    return p;
+}
+
+void printStringList(StringList* list) {
+    StringElement* e = list->first;
+    printString(e->str);
+
+    while(e->hasNext) {
+        e = e->next;
+        printString(e->str);
+    }
 }

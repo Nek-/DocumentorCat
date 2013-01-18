@@ -9,11 +9,11 @@ typedef struct {
 } String;
 
 String* newString();
-String* newString(int length);
-String* newString(wchar_t* str);
+String* newStringFromInt(int length);
+String* newStringFromWchar(wchar_t* str);
 
-void addToString(String* s, String* s2);
-void addToString(String* s, wchar_t* s2, int length2);
+void addStringToString(String* base, String* addition);
+void addWcharToString(String* s, wchar_t* s2, int length2);
 
 void printString(String* s);
 
