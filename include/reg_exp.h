@@ -3,4 +3,8 @@
 
 void test_copain();
 
+typedef struct {
+
+} Comment;
+
 #endif // REG_EXP_H_INCLUDED

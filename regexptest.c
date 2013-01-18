@@ -32,13 +32,29 @@ int main()\n\
 {\n\
     printf(\"Hello !\");\n\
     return 0;\n\
+}\n\
+\n\
+\n\
+/**\n\
+ * \\file      main.c\n\
+ * \\author    HappyTeam\n\
+ * \\version   1.0\n\
+ * \\date      7/01/2012\n\
+ * \\brief     Fonctionnement principal\n\
+ *\n\
+ */\n\
+\
+int main()\n\
+{\n\
+    printf(\"Hello !\");\n\
+    return 0;\n\
 }\n";
     // Tested on http://rubular.com/
     // Expresion who get comments like that:
     /**
      *
      */
-    const char *str_regex = "\\/\\*\\*(.*)\\*\\/[[:space:]]+((int|float|double|void|char)\\** [a-zA-Z]+\\((((int|float|double|void|char)\\**[[:space:]]+[a-z])(,[[:space:]]*)?)*\\))";
+    const char *str_regex = "\\/\\*\\*(.*)\\*\\/[[:space:]]+((int|float|double|void|char)\\** [a-zA-Z_]+\\((((int|float|double|void|char)\\**[[:space:]]+[a-z])(,[[:space:]]*)?)*\\))";
 
     /* On commence par compiler notre expression sans l'option REG_NOSUB pour pouvoir récupérer les sous chaîne reconnues */
     err = regcomp (&preg, str_regex, REG_EXTENDED);
