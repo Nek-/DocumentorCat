@@ -16,7 +16,7 @@
  * \\brief     Fonctionnement principal\n\
  *\n\
  */\n\
-\
+\n\
 int main()\n\
 {\n\
     printf(\"Hello !\");\n\
@@ -50,7 +50,6 @@ int main()\n\
 
 int main()
 {
-    printf("working");
     Pattern* p = newPattern(L"/**", L"*/");
 
 

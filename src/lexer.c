@@ -13,22 +13,29 @@ StringList* search(Pattern* p, String* s) {
                   detecting = 0;
     StringList* list = newStringList();
 
+    unsigned char buffering_after = 0,
+                  detecting_after = 0;
+
     for (i = 0; i < s->length; i++) {
         // This condition fully use lazy execution
         if (buffering || detecting > 0 || (s->str[i] == p->start[0])) {
 
             // Trying to start buffering
             if (!buffering) {
-                detecting++;
+
                 if (p->start[detecting] == L'\0') {
+
+                    // Starting buffer
+                    range.start = i - detecting;
+
                     detecting = 0;
                     buffering = 1;
 
-                    // Starting buffer
-                    range.start = i - buffering;
 
                 } else if (p->start[detecting] != s->str[i]) {
                     detecting = 0;
+                } else {
+                    detecting++;
                 }
             } else {
                 // Trying to stop buffering
@@ -48,11 +55,47 @@ StringList* search(Pattern* p, String* s) {
 
                         addToStringList(list, buffer);
 
+                        // Starting buffering "after"
+                        buffering_after = 1;
+
                     } else if (s->str[i] != p->end[detecting]) {
                         detecting = 0;
+                    } else {
+                        detecting++;
                     }
 
                 }
+            }
+        } else {
+            detecting = 0;
+        }
+
+        // Getting the prototype of the function
+        if(buffering_after) {
+            // If it's a new line, detection comes to 0
+            if(s->str[i] == L'\n') {
+                detecting_after = 0;
+
+            } else if (detecting_after > 4 && s->str[i] == L')') {
+
+                buffering_after = 0;
+                list->last->after = newStringFromInt(detecting_after+1);
+                int itmp = i - detecting_after;
+                for (j=0; j <= detecting_after; j++) {
+
+                    list->last->after->str[j] = s->str[itmp+j];
+                }
+
+                list->last->hasAfter = 1;
+                detecting_after = 0;
+
+            } else if(s->str[i] == L';') {
+                buffering_after = 0;
+                detecting_after = 0;
+            } else if(detecting_after > 0) {
+                detecting_after++;
+            } else if(s->str[i] != L' ') {
+                detecting_after++;
             }
         }
     }
@@ -82,8 +125,9 @@ void addToStringList(StringList* list, String* s) {
 
 StringElement* newStringElement(String* s) {
     StringElement* se = malloc(sizeof(StringElement));
-    se->str = s;
-    se->hasNext = 0;
+    se->str           = s;
+    se->hasNext       = 0;
+    se->hasAfter      = 0;
 
     return se;
 }
@@ -96,12 +140,33 @@ Pattern* newPattern(wchar_t* start, wchar_t* end) {
     return p;
 }
 
-void printStringList(StringList* list) {
-    StringElement* e = list->first;
-    printString(e->str);
+char searchAndFind(wchar_t* after, wchar_t* before, String* str) {
+    char res = 0;
 
-    while(e->hasNext) {
-        e = e->next;
-        printString(e->str);
+    unsigned char buffering = 0;
+
+    for(i=0; i < str->length; i++) {
+        if (buffering)
     }
+}
+
+void printStringList(StringList* list) {
+
+    if(list->size > 0) {
+        StringElement* e = list->first;
+        printString(e->str);
+        if(e->hasAfter) {
+            printString(e->after);
+        }
+
+        while(e->hasNext) {
+            e = e->next;
+            printString(e->str);
+            if(e->hasAfter) {
+                printString(e->after);
+            }
+        }
+
+    }
+    wprintf(L"\n");
 }
