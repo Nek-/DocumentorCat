@@ -1,12 +1,19 @@
 #include "list.h"
 
-
-List* add_file(List* l , char* name,char* path){
+List* newList(char* name, char* path){	
 	List* tmp = malloc(sizeof(List));
-	if( tmp != NULL)
-		strncpy(tmp->name,name,MAX_LENGTH);
-		strncpy(tmp->path,path,MAX_LENGTH);
+	if (tmp != NULL){
+		strcncpy(char->name,name,MAX_LENGTH);
+		strcncpy(char->path,path,MAX_LENGTH);
 		tmp->next = NULL;
+	}
+	else 
+		printf("Allocation failed \n");
+		
+	return tmp;
+}
+List* add_file(List* l , char* name,char* path){
+	List* tmp = newList(char* name, char* path);
 	
 	if( l == NULL){
 		
@@ -59,7 +66,23 @@ int find_file(char *name, List* l){
 	
 	return 0;
 }	
-	
-	
-	
 
+void freeList(List* l)
+{
+  	List tmp;
+
+ 	 while (*c != NULL)
+  	{
+		tmp = *c;
+		*c = (*c)->next;
+		
+		if(tmp->name!=NULL)
+			free(temp->name);
+		
+		if(tmp->path!=NULL)
+			free(temp->path);
+		
+		free(temp);
+  }
+	
+}

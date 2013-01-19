@@ -18,7 +18,7 @@ typedef struct
 {
     StringElement *first;
     StringElement *last;
-    int size;
+    int size;	
 
 } StringList;
 
